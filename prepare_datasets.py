@@ -9,9 +9,9 @@ from constants import RAW_DATA_PATH, DATASETS_PATH, DATASETS_DIV_PERCENT, MAIN_P
 
 
 def divide_images(divided_arts_numbers, artists):
-    '''
+    """
     After providing names of artists and artworks numbers for each dataset paintings are copied to proper datasets.
-    '''
+    """
     for dataset, art_numbers in divided_arts_numbers.items():
         for idx, artist in enumerate(artists):
             idx = str(idx)
@@ -24,14 +24,14 @@ def divide_images(divided_arts_numbers, artists):
 
 
 def prepare_arts_numbers(total):
-    '''Prepares all shuffled artwork numbers that will be then choosen for datasets.'''
+    """Prepares all shuffled artwork numbers that will be then choosen for datasets."""
     arts_numbers = list(range(1, 1 + total))
     random.shuffle(arts_numbers)
     return arts_numbers
 
 
 def calc_data_division(artists_arts_info):
-    '''Calculates the amount of artworks for each dataset due to delarated percentage.'''
+    """Calculates the amount of artworks for each dataset due to delarated percentage."""
     division_amount = {}
     total = min(artists_arts_info.values())
     arts_numbers = prepare_arts_numbers(total)
@@ -42,7 +42,7 @@ def calc_data_division(artists_arts_info):
 
 
 def prepare_data_for_classes(artists_arts_info):
-    '''Prepares info about artworks numbers that will be moved to each dataset.'''
+    """Prepares info about artworks numbers that will be moved to each dataset."""
     division_amount, arts_numbers = calc_data_division(artists_arts_info)
 
     divided_arts_numbers = {}
@@ -55,14 +55,14 @@ def prepare_data_for_classes(artists_arts_info):
 
 
 def prepare_datasets_paths():
-    '''Prepares directories for datasets that will be used during experiments.'''
+    """Prepares directories for datasets that will be used during experiments."""
     DATASETS_PATH.mkdir(exist_ok=True)
     for dataset in DATASETS_DIV_PERCENT.keys():
         DATASETS_PATH.joinpath(dataset).mkdir(exist_ok=True)
 
 
 def prepare_arts_info(artists, artists_info):
-    '''Prepares information about amount of artworks of chosen artists.'''
+    """Prepares information about amount of artworks of chosen artists."""
     info = {}
     for artist in artists:
         if artist in artists_info.keys():
@@ -86,8 +86,8 @@ def main(artists=["Vincent_van_Gogh", "Pablo_Picasso"]):
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         main()
-    if len(sys.argv) == 3:
+    elif len(sys.argv) == 3:
         main(artists=[sys.argv[1], sys.argv[2]])
-    elif len(sys.argv) != 1:
+    else:
         raise ValueError("There is too much or not enough data provided.")
 

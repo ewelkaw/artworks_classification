@@ -29,6 +29,11 @@ By default data will be divided into three datasets:
 - test (20%)
 - validation (20%)
 
+You can use that script in a default version as above or use it choosing your own artists, but they need to be in artists list.
+    ```
+    python prepare_datasets.py Piet_Mondrian Diego_Velazquez
+    ```
+
 ### 2. CLASSIFICATION PIPELINE
 Data classification process will be presented in `jupyter notebook`, which is saved in: `artworks_classification/data_classification`.
 
