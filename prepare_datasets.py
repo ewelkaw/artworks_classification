@@ -2,6 +2,7 @@ from pathlib import Path
 import sys
 import json
 import random
+import shutil
 from shutil import copyfile
 
 from prepare_artist_list import ARTIST_NAME_FILE_NAME
@@ -20,7 +21,7 @@ def divide_images(divided_arts_numbers, artists):
                 art_name = ".".join(["_".join([artist, str(art_number)]), "jpg"])
                 src = RAW_DATA_PATH.joinpath(artist, art_name)
                 dst = DATASETS_PATH.joinpath(dataset, idx, art_name)
-                copyfile(src, dst)
+                shutil.copyfile(src, dst)
 
 
 def prepare_arts_numbers(total):
@@ -56,7 +57,10 @@ def prepare_data_for_classes(artists_arts_info):
 
 def prepare_datasets_paths():
     """Prepares directories for datasets that will be used during experiments."""
-    DATASETS_PATH.mkdir(exist_ok=True)
+    if DATASETS_PATH.exists():
+        shutil.rmtree(DATASETS_PATH, ignore_errors=True)
+    DATASETS_PATH.mkdir()
+
     for dataset in DATASETS_DIV_PERCENT.keys():
         DATASETS_PATH.joinpath(dataset).mkdir(exist_ok=True)
 
